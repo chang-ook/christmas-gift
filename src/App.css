@@ -1,0 +1,186 @@
+/* 전체 배경 */
+.App {
+  min-height: 100vh;
+  margin: 0;
+  padding: 40px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle at top, #ff9966, #1e1e2f 60%, #000000);
+  font-family: "Noto Sans KR", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 눈 효과 레이어 */
+.snow-layer {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  background-image: url("/images/11413.jpg"); /* 로컬 파일로 변경 */
+  background-size: 1600px 1800px;             /* 이미지 크기 조절 */
+  background-repeat: repeat;                /* 화면 전체에 반복 */
+  opacity: 0.5;
+  animation: snow 12s linear infinite;
+  z-index: 0;
+}
+@keyframes snow {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 0 1000px;
+  }
+}
+
+/* 카드 */
+.card {
+  position: relative;
+  z-index: 1;
+  max-width: 700px;
+  width: 100%;
+  background: rgba(15, 15, 25, 0.8);
+  border-radius: 24px;
+  padding: 30px 25px 25px;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(20px);
+}
+
+/* 헤더 */
+.card-header {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.card-header h1 {
+  margin: 0;
+  font-size: 2.2rem;
+}
+
+.subtitle {
+  margin-top: 6px;
+  font-size: 0.95rem;
+  opacity: 0.85;
+}
+
+/* D-Day */
+.dday-section {
+  margin: 12px auto 20px;
+  padding: 10px 16px;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.dday-label {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.dday-value {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #ffcd4b;
+}
+
+/* 편지 */
+.letter-section {
+  margin-bottom: 24px;
+}
+
+.letter {
+  margin: 0;
+  white-space: pre-wrap;
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+/* 사진 슬라이드 */
+.photo-section {
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.photo-section h2 {
+  margin-bottom: 10px;
+}
+
+.photo-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.photo {
+  width: 260px;
+  max-width: 70%;
+  border-radius: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.6);
+  object-fit: cover;
+}
+
+.nav-btn {
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 1.4rem;
+  cursor: pointer;
+  padding: 4px 6px;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+  opacity: 0.7;
+}
+
+.nav-btn:hover {
+  transform: scale(1.2);
+  opacity: 1;
+}
+
+.photo-indicator {
+  margin-top: 8px;
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+/* 음악 */
+.music-section {
+  margin-bottom: 18px;
+  text-align: center;
+}
+
+.music-section h2 {
+  margin-bottom: 8px;
+}
+
+.music-section audio {
+  width: 100%;
+}
+
+/* 푸터 */
+.card-footer {
+  text-align: right;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.from-name {
+  font-weight: 600;
+  color: #ff9f9f;
+}
+
+/* 반응형 */
+@media (max-width: 600px) {
+  .card {
+    padding: 22px 16px 18px;
+  }
+
+  .photo {
+    max-width: 80%;
+  }
+}
