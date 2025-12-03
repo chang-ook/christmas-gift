@@ -1,27 +1,27 @@
-/* 전체 배경 */
-/*
-.App {
-  min-height: 100vh;
-  width: 100vw;                
+/* 공통 리셋 & 레이아웃 기본 */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
   margin: 0;
-  padding: 32px 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: radial-gradient(circle at top, #27293d, #050712 60%, #000000);
-  font-family: "Noto Sans KR", system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", sans-serif;
-  color: #fff;
-  position: relative;
-  overflow: hidden;            
-}*/
+  padding: 0;
+  height: 100%;
+}
 
+body {
+  background: #050712;
+  overflow: hidden; /* 전체 페이지를 한 화면으로 고정 */
+}
 
+/* 전체 배경(App) */
 .App {
   height: 100vh;       /* 한 화면 높이 고정 */
   width: 100vw;        /* 한 화면 너비 고정 */
   margin: 0;
-  padding: 0;          /* 여기 padding 빼고 카드에만 padding 주자 */
+  padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -30,9 +30,8 @@
     "Segoe UI", sans-serif;
   color: #fff;
   position: relative;
-  overflow: hidden;    /* 안에서 또 스크롤 안 생기게 */
+  overflow: hidden;    /* 내부 스크롤 방지 */
 }
-
 
 /* 눈 효과 레이어 */
 .snow-layer {
@@ -42,13 +41,14 @@
   left: 0;
   width: 100vw;   /* 전체 가로 */
   height: 100vh;  /* 전체 세로 */
-  background-image: url("/images/snow2.jpg");
+  background-image: url("/images/snow2.jpg"); /* 네가 쓰는 눈 이미지 */
   background-size: 600px 600px;
   background-repeat: repeat;
   opacity: 0.5;
   animation: snow 12s linear infinite;
   z-index: 0;
 }
+
 @keyframes snow {
   from {
     background-position: 0 0;
@@ -63,13 +63,25 @@
   position: relative;
   z-index: 1;
   max-width: 700px;
-  width: 100%;
+  width: calc(100% - 32px);  /* 양 옆 여백 확보 */
   background: rgba(15, 15, 25, 0.8);
   border-radius: 24px;
   padding: 30px 25px 25px;
   box-shadow: 0 18px 45px rgba(0, 0, 0, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.12);
   backdrop-filter: blur(20px);
+
+  /* 카드 등장 애니메이션 */
+  opacity: 0;
+  transform: translateY(24px) scale(0.96);
+  animation: cardEnter 0.8s ease-out forwards;
+}
+
+@keyframes cardEnter {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 /* 헤더 */
@@ -208,6 +220,8 @@
   }
 }
 
+/* ========== 인트로 (편지 봉투) 영역 ========== */
+
 /* 인트로 오버레이 전체 */
 .intro-overlay {
   position: absolute;
@@ -218,6 +232,12 @@
   align-items: center;
   background: radial-gradient(circle at top, #191b2a, #050712 70%, #000);
   z-index: 10; /* 카드보다 위 */
+  transition: opacity 0.6s ease-out;
+}
+
+/* 봉투 열릴 때 오버레이 페이드아웃 */
+.intro-overlay.intro-fade {
+  opacity: 0;
 }
 
 /* 봉투 */
@@ -227,6 +247,7 @@
   height: 180px;
   cursor: pointer;
   animation: envelopeFloat 2.2s ease-in-out infinite;
+  transition: transform 0.8s ease-out, opacity 0.8s ease-out;
 }
 
 .envelope-top {
@@ -237,6 +258,8 @@
   height: 55%;
   background: linear-gradient(135deg, #444a65, #2b3148);
   clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transform-origin: top center;
+  transition: transform 0.8s ease-out;
 }
 
 .envelope-body {
@@ -292,3 +315,13 @@
   100% { transform: translateY(0); }
 }
 
+/* 봉투 열리는 상태 */
+.envelope.opening {
+  animation: none;
+  transform: translateY(-30px) scale(1.05);
+  opacity: 0;
+}
+
+.envelope.opening .envelope-top {
+  transform: rotateX(180deg);
+}

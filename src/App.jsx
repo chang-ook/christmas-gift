@@ -1,11 +1,19 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import "./App.css";
 
 function App() {
   // ======================
-  // 0. 편지 열림 상태
+  // 0. 화면 단계 상태
   // ======================
-  const [isOpened, setIsOpened] = useState(false);
+  // 인트로(봉투) 보여줄지 여부
+  const [showIntro, setShowIntro] = useState(true);
+  // 봉투가 열리는 중인지 여부 (애니메이션용)
+  const [isOpening, setIsOpening] = useState(false);
+  // 메인 카드 보여줄지 여부
+  const [showCard, setShowCard] = useState(false);
+
+  // BGM 제어용 ref
+  const audioRef = useRef(null);
 
   // ======================
   // 1. 타이핑 되는 편지
@@ -23,7 +31,8 @@ function App() {
       setTypedLetter(fullLetter.slice(0, i));
       i++;
       if (i > fullLetter.length) clearInterval(interval);
-    }, 60);
+    }, 60); // 타이핑 속도
+
     return () => clearInterval(interval);
   }, []);
 
@@ -37,7 +46,7 @@ function App() {
     const today = new Date();
     const diffTime = today.getTime() - startDate.getTime();
     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-    setDDay(diffDays + 1); 
+    setDDay(diffDays + 1); // 첫날을 D+1로 보고 싶으면 +1
   }, []);
 
   // ======================
@@ -61,19 +70,74 @@ function App() {
     );
   };
 
+  // ======================
+  // 4. 봉투 클릭 시 동작
+  // ======================
+  const handleOpenLetter = () => {
+    if (isOpening) return; // 중복 클릭 방지
+    setIsOpening(true);
+
+    // 일정 시간 후 카드 보여주기
+    setTimeout(() => {
+      setShowCard(true);
+    }, 800); // 봉투 열리는 애니메이션 끝나는 타이밍
+
+    // 인트로 오버레이는 조금 더 있다가 페이드아웃 후 제거
+    setTimeout(() => {
+      setShowIntro(false);
+    }, 1200);
+  };
+
+  // ======================
+  // 5. 카드가 나타날 때 BGM 재생 + 볼륨 페이드인
+  // ======================
+  useEffect(() => {
+    if (!showCard || !audioRef.current) return;
+
+    const audio = audioRef.current;
+    let vol = 0;
+    audio.volume = 0;
+
+    // 유저 클릭 이후라 대부분 브라우저에서 play 허용됨
+    audio
+      .play()
+      .catch(() => {
+        // 모바일에서 자동재생 막힌 경우는 그냥 무시
+      });
+
+    const fade = setInterval(() => {
+      vol += 0.02;
+      if (vol >= 0.5) {
+        vol = 0.5;
+        clearInterval(fade);
+      }
+      audio.volume = vol;
+    }, 120); // 0.5까지 ~3초 정도 페이드인
+
+    return () => clearInterval(fade);
+  }, [showCard]);
+
+  // ======================
+  // 렌더링
+  // ======================
   return (
     <div className="App">
-      {/* === 눈 효과 === */}
+      {/* 눈 효과 (공통) */}
       <div className="snow-layer"></div>
 
       {/* === 인트로: 편지봉투 화면 === */}
-      {!isOpened && (
-        <div className="intro-overlay">
-          <div className="envelope" onClick={() => setIsOpened(true)}>
+      {showIntro && (
+        <div className={`intro-overlay ${isOpening ? "intro-fade" : ""}`}>
+          <div
+            className={`envelope ${isOpening ? "opening" : ""}`}
+            onClick={handleOpenLetter}
+          >
             <div className="envelope-top" />
             <div className="envelope-body">
               <p className="envelope-text">
-                클릭해서<br />편지를 열어보세요 💌
+                클릭해서
+                <br />
+                편지를 열어보세요 💌
               </p>
             </div>
             <div className="envelope-seal">♥</div>
@@ -83,7 +147,7 @@ function App() {
       )}
 
       {/* === 메인 카드 화면 === */}
-      {isOpened && (
+      {showCard && (
         <div className="card">
           <header className="card-header">
             <h1>🎄 Merry Christmas 🎄</h1>
@@ -125,7 +189,7 @@ function App() {
           {/* BGM */}
           <section className="music-section">
             <h2>🎧 함께 듣는 크리스마스 송</h2>
-            <audio controls loop>
+            <audio ref={audioRef} controls loop>
               <source src="/music/christmas.mp3" type="audio/mpeg" />
               브라우저가 오디오 태그를 지원하지 않습니다.
             </audio>
@@ -142,4 +206,4 @@ function App() {
   );
 }
 
-export default App
+export default App;
