@@ -6,7 +6,6 @@ function App() {
   const fullLetter =
     "올해도 나랑 함께해줘서 고마워용.\n" +
     "내년에도 싸우지 말고 행복하게 지내자요!!❤️\n" +
-    "나한텐 너무 소중한 기억이야.\n" +
     "앞으로도 매년 크리스마스🎄를 굥이랑 보내고 싶어용. ❤️";
 
   const [typedLetter, setTypedLetter] = useState("");

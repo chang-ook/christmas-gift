@@ -1,7 +1,8 @@
 /* 전체 배경 */
+/*
 .App {
   min-height: 100vh;
-  width: 100vw;                /* 오른쪽 회색 영역 방지 */
+  width: 100vw;                
   margin: 0;
   padding: 32px 10px;
   display: flex;
@@ -12,8 +13,26 @@
     "Segoe UI", sans-serif;
   color: #fff;
   position: relative;
-  overflow: hidden;            /* 안에서 더 스크롤 안 생기게 */
+  overflow: hidden;            
+}*/
+
+
+.App {
+  height: 100vh;       /* 한 화면 높이 고정 */
+  width: 100vw;        /* 한 화면 너비 고정 */
+  margin: 0;
+  padding: 0;          /* 여기 padding 빼고 카드에만 padding 주자 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle at top, #27293d 0%, #050712 55%, #000000 100%);
+  font-family: "Noto Sans KR", system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", sans-serif;
+  color: #fff;
+  position: relative;
+  overflow: hidden;    /* 안에서 또 스크롤 안 생기게 */
 }
+
 
 /* 눈 효과 레이어 */
 .snow-layer {
