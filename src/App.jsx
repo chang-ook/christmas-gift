@@ -6,9 +6,9 @@ function App() {
   // 0. BGM 플레이리스트 (3곡 순환)
   // ======================
   const bgmList = [
-    "/music/music1.mp3",
-    "/music/music2.mp3",
     "/music/music3.mp3",
+    "/music/music2.mp3",
+    "/music/music1.mp3",
   ];
 
   const [bgmIndex, setBgmIndex] = useState(0);
