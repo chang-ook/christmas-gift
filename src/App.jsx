@@ -28,8 +28,8 @@ function App() {
   const fullLetter =
     "올해도 나랑 함께해줘서 고마워용.\n" +
     "내년에도 싸우지 말고 행복하게 지내자요!!❤️\n" +
-    "앞으로도 매년 크리스마스🎄를 굥이랑 보내고 싶어용. ❤️";
-
+    "앞으로도 매년 크리스마스🎄를 굥이랑 보내고 싶어용. ❤️" +
+    "굥이 사랑해요 💕";
   const [typedLetter, setTypedLetter] = useState("");
 
   useEffect(() => {
@@ -62,6 +62,9 @@ function App() {
     "/images/picture1.jpg",
     "/images/picture2.jpg",
     "/images/picture3.jpg",
+    "/images/picture4.jpg",
+    "/images/picture5.jpg",
+    "/images/picture6.jpg"
   ];
 
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
@@ -166,7 +169,7 @@ function App() {
         <div className="card">
           <header className="card-header">
             <h1>🎄 Merry Christmas 🎄</h1>
-            <p className="subtitle">To. 가장 소중한 너에게</p>
+            <p className="subtitle">To. 가장 소중한 굥이에게</p>
           </header>
 
           {/* D-Day */}
@@ -182,7 +185,7 @@ function App() {
 
           {/* 사진 슬라이드 */}
           <section className="photo-section">
-            <h2>📷 우리 추억 모음</h2>
+            <h2>📷 굥이와 추억 모음</h2>
             <div className="photo-wrapper">
               <button className="nav-btn" onClick={prevPhoto}>
                 ◀
