@@ -59,12 +59,12 @@ function App() {
   // 4. 사진 슬라이드
   // ======================
   const photos = [
-    "/images/picture1.jpg",
-    "/images/picture2.jpg",
-    "/images/picture3.jpg",
-    "/images/picture4.jpg",
-    "/images/picture5.jpg",
-    "/images/picture6.jpg"
+    "/images/img1.jpg",
+    "/images/img2.jpg",
+    "/images/img3.jpg",
+    "/images/img4.jpg",
+    "/images/img5.jpg",
+    "/images/img6.jpg"
   ];
 
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
@@ -168,7 +168,7 @@ function App() {
       {showCard && (
         <div className="card">
           <header className="card-header">
-            <h1>🎄 Merry Christmas 🎄</h1>
+            <h1>🎄 Merry Christmas</h1>
             <p className="subtitle">To. 가장 소중한 굥이에게</p>
           </header>
 
